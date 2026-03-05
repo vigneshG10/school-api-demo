@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const routes = require('./routes');
+const userRoutes = require('./routes/user.routes');
 const { notFound, errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // API routes
 app.use('/', routes);
+app.use('/api/users', userRoutes);
 
 // Error handling
 app.use(notFound);
