@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = require('./config');
 const app = require('./app');
 const connectDB = require('./config/db');
@@ -6,7 +7,9 @@ const startServer = async () => {
   try {
     // Connect to database
     if (config.mongoUri) {
-      await connectDB(config.mongoUri);
+      connectDB(config.mongoUri).catch((err) => {
+        console.error(`Initial MongoDB connection failed: ${err.message}`);
+      });
     } else {
       console.warn('MONGO_URI is not defined. Proceeding without database connection.');
     }
